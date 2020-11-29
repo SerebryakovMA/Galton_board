@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     srand(time(0));
-    double* counts[10];
+    double* counts[100];
 
     for (int i = 0; i < 10; i++) {
         counts[i] = new double[i + 1];
@@ -16,13 +16,13 @@ int main() {
             counts[i][j] = 0;
         }
     }
-const int Runs = 1000;
+const int Runs = 10000;
 const double coeff = 5 * 3 * 6.5821195144 * pow(10, -19);
 
 for (int run = 0; run < Runs; run++) {
     counts[0][0]++;
     int j = 0;
-    for (int i = 1; i < 10; i++) {
+    for (int i = 1; i < 100; i++) {
         int r = rand() % 2;
         if (r == 1){
             j++;
@@ -33,15 +33,15 @@ for (int run = 0; run < Runs; run++) {
 
 ofstream fout;
 fout.open("output.csv");
-for (int i = 0; i < 10; i++){
+for (int i = 0; i < 100; i++){
     for (int j = 0; j <= i; j++){
-        fout << setw(4) << counts[i][j] << ",";
+        fout << setw(10) << counts[i][j] << ",";
     }
     fout << endl;
 }
 fout.close();
 
-for (int i = 0; i < 10; i++){
+for (int i = 0; i < 100; i++){
     delete[] counts[i];
 }
 
