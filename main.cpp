@@ -8,40 +8,55 @@ using namespace std;
 
 int main() {
     srand(time(0));
-    double* counts[100];
+    constexpr int num_rows = 11;
+    struct gap {
+        int num;
+        double mass;
+    };
+    gap* counts[num_rows];
 
-    for (int i = 0; i < 10; i++) {
-        counts[i] = new double[i + 1];
+    for (int i = 0; i < num_rows; i++) {
+        counts[i] = new gap[num_rows];
         for (int j = 0; j <= i; j++) {
-            counts[i][j] = 0;
+            counts[i][j].mass = 0;
+            counts[i][j].num = 0;
         }
     }
-const int Runs = 10000;
+const int Runs = 100;
 const double coeff = 5 * 3 * 6.5821195144 * pow(10, -19);
 
 for (int run = 0; run < Runs; run++) {
-    counts[0][0]++;
+    counts[(num_rows -1) / 2][0].num++;
     int j = 0;
-    for (int i = 1; i < 100; i++) {
-        int r = rand() % 2;
-        if (r == 1){
-            j++;
+    for (int i = 1; i < num_rows; i++) {
+        int r = rand() % 3;
+        if (r == 0){
+            counts[i][j-1].num++;
+            counts[i][j-1].mass += 1;
         }
-        counts[i][j] += (1 - coeff * j * j);
+        if (r == 1) {
+            counts[i+1][j].num++;
+            counts[i+1][j].mass += 1;
+        }
+        if (r == 2) {
+            counts[i][j+1].num++;
+            counts[i][j+1].mass += 1;
+        }
 }
 }
 
 ofstream fout;
 fout.open("output.csv");
-for (int i = 0; i < 100; i++){
+for (int i = 0; i < num_rows; i++){
     for (int j = 0; j <= i; j++){
-        fout << setw(10) << counts[i][j] << ",";
+        fout << setw(4) << counts[i][j].num << ",";
     }
     fout << endl;
+
 }
 fout.close();
 
-for (int i = 0; i < 100; i++){
+for (int i = 0; i < num_rows; i++){
     delete[] counts[i];
 }
 
