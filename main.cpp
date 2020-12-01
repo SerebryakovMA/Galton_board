@@ -69,7 +69,7 @@ int main() {
     // for (int row = 0; row < num_rows; row++){
         int row = num_rows -1 ;
         for (int j = 0; j < num_cols; j++){
-            fout << setprecision(5) << setw(7) << fixed << accumulate(counts[row][j].begin(), counts[row][j].end(), 0.0) << ",";
+            fout << setprecision(5) << setw(7) << accumulate(counts[row][j].begin(), counts[row][j].end(), 0.0) << ",";
         }
         fout << endl;
     // }
