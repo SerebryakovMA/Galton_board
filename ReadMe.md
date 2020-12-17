@@ -1,0 +1,1 @@
+To compile this project with plotting you should clone repository with matplotlib library for c++ (https://github.com/lava/matplotlib-cpp.git) and perhaps you need branch fix/#225, so it depends on version of python in your system. 
